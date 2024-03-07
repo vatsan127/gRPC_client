@@ -5,6 +5,8 @@ import io.grpc.ManagedChannelBuilder;
 import org.example.properties.GrpcClientProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.example.client.NumberServiceGrpc;
+import org.example.client.NumberRequest;
 
 import java.util.concurrent.TimeUnit;
 
