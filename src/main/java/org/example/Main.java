@@ -15,6 +15,11 @@ public class Main {
         grpcClient.clientInit(param);
     }
 
+    /*
+     * Get Argument and validate
+     * default -1 (for round-robin)
+     * CMD args should be Integer Parsable
+     */
     public static int initializeArguments(String[] args) {
         int inputNumber = -1;
         if (args.length > 0) {

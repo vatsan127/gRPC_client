@@ -5,8 +5,6 @@ import io.grpc.ManagedChannelBuilder;
 import org.example.properties.GrpcClientProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.example.client.NumberServiceGrpc;
-import org.example.client.NumberRequest;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,11 +16,14 @@ public class GrpcClient {
 
     }
 
+    /*
+     * send continuous request(sync) to grpc_server
+     * data > 0 - send CMD Argument
+     * data < 0 - send data in round robin
+     */
+
     public static void clientInit(int data) {
-        ManagedChannel channel = ManagedChannelBuilder
-                .forAddress(grpcClientProperties.getHost(), grpcClientProperties.getPort())
-                .usePlaintext()
-                .build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(grpcClientProperties.getHost(), grpcClientProperties.getPort()).usePlaintext().build();
 
         if (data > 0) {
             log.info("startGrpcClient :: Starting gRPC Client with requestParam {}", data);
@@ -48,8 +49,10 @@ public class GrpcClient {
         }
     }
 
+    /*
+     * GrpcClient
+     * */
     private static void startClient(int inputNumber, ManagedChannel channel) {
-
         var stub = org.example.client.NumberServiceGrpc.newBlockingStub(channel);
         NumberRequest request = NumberRequest.newBuilder().setNumber(inputNumber).build();
         long startTime = System.currentTimeMillis();
